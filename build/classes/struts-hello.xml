@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+   
+<struts>
+	<package name="hello" namespace="/hello" extends="struts-default">
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="error1">/error1.jsp</result>
+			<result name="error2">/error2.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error1" exception="java.lang.NullPointerException"></exception-mapping>
+			<exception-mapping result="error2" exception="java.sql.SQLException"></exception-mapping>
+		</global-exception-mappings>
+		<action name="hello" class="priv.jihua.struts2.web.action.HelloAction" method="execute">
+		<!-- result type类型：dispatcher,redirect,chain,json,redirectAction -->
+			<result name="success" type="dispatcher">/hello/helloStruts.jsp</result>
+			<result name="hello">/hello/hello.jsp</result>
+			<result name="hi">/hello/hi.jsp</result>
+		</action>
+		<action name="hello_*" class="priv.jihua.struts2.web.action.HelloAction" method="{1}">
+			<result name="success">/hello/helloStruts.jsp</result>
+			<result name="hello">/hello/hello.jsp</result>
+			<result name="hi">/hello/hi.jsp</result>
+		</action>
+	</package>
+</struts>

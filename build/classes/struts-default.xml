@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+   
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant> <!--struts 内建主题 simple,xhtml,css_xhtml,ajax -->
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<constant name="struts.multipart.maxSize" value="5000000"></constant>
+	
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="myTimer" class="priv.jihua.struts2.web.interceptor.MyInterceptor2"></interceptor>
+		</interceptors>
+		<default-action-ref name="index"></default-action-ref>
+		<action name="index">
+			<result>index.jsp</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="myTimer"></interceptor-ref>
+		</action>
+		<action name="upload" class="priv.jihua.struts2.web.action.UploadAction" method="doUpload">
+			<result name="success">/singleSuccess.jsp</result>
+			<result name="input">/fileupload.jsp</result>
+			<!-- <interceptor-ref name="fillUpload">
+				<param name="maximumSize">4000000</param>
+				<param name="allowedTypes">image/jpeg,image/pjpeg</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref> -->
+		</action>
+		
+		<action name="uploads" class="priv.jihua.struts2.web.action.UploadAction2" method="doUploads">
+			<result name="success">/multiSuccess.jsp</result>
+			<result name="input">/fileuploads.jsp</result>
+		</action>
+		
+		
+		
+	</package>
+	<!-- <package name="data" namespace="/" extends="struts-default">
+		<action name="getData" class="priv.jihua.struts2.web.action.DataAction" method="show">
+			<result type="json">
+				<param name="includeProperties">
+					name,age
+				</param>
+			</result>
+		</action>
+	</package> -->
+	
+	
+	
+	<include file="struts-hello.xml"></include>
+	<include file="struts-user.xml"></include>
+</struts>
